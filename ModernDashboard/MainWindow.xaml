@@ -12,8 +12,8 @@
         xmlns:vm="clr-namespace:ModernDashboard.ViewModel"
         mc:Ignorable="d"
         Title="" 
-        Height="700" 
-        Width="930"
+        Height="800" 
+        Width="1300"
         x:Name="DashboardWindow"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -39,121 +39,124 @@
     </WindowChrome.WindowChrome>
 
     <Window.DataContext>
-
         <vm:NavigationViewModel/>
     </Window.DataContext>
 
     <!--Background Border-->
-    <Border Background="#051B33"
-                CornerRadius="0,0,0,0" >
+    <Grid>
+        <Border Background="#000000"
+                CornerRadius="0,0,0,0" />
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="25"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="100"/>
                 <RowDefinition/>
-                <RowDefinition Height="30"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
+            <!--HEADER-->
+            <Grid x:Name="header" Grid.ColumnSpan="5"  Height="30">
+                <!--Window chrome-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <!--App icon-->
+                    <TextBlock Text="Digital Component Inspection" FontFamily="Arial" Margin="4 3 0 0" Foreground="Wheat" />
+                </StackPanel>
 
+                <!--Caption buttons-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Width="25" Height="auto" Style="{StaticResource MinBtn_Style}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
+                            Command="{Binding MinimizeAppCommand}" CommandParameter="{Binding ElementName=DashboardWindow}"/>
+                    <Button Width="25" Height="auto" x:Name="RestoreButton" Visibility="Collapsed" Style="{StaticResource MaxBtn_Style}" 
+                            Command="{x:Static SystemCommands.RestoreWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore"/>
+                    <Button Width="25" Height="auto" x:Name="MaximizeButton" Visibility="Visible" Style="{StaticResource MaxBtn_Style}" 
+                            Command="{Binding MaximizeAppCommand}"
+                CommandParameter="{Binding ElementName=DashboardWindow}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" />
+                    <Button Width="25" Height="auto" Style="{StaticResource CloseBtn_Style}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
+                            Command="{Binding CloseAppCommand}"
+                CommandParameter="{Binding ElementName=DashboardWindow}"/>
+                </StackPanel>
+            </Grid>
 
-            <Border  Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Background="#403E42"/>
-            <TextBox x:Name="x_username" Grid.Column="1" Grid.Row="1"  Text="UserName" VerticalAlignment="Center" Height="18"/>
+            <!--MENU-->
+            <Grid Grid.Row="1">
+                <Border Background="#403E42"/>
+                <DockPanel>
+                    <Image Margin="10" DockPanel.Dock="Left" Source="/Assets/RR_Monogram_White.png"/>
+                    <StackPanel></StackPanel>
+                </DockPanel>
+            </Grid>
 
-            <Border Grid.ColumnSpan="5" Grid.Row="4" Background="#211F43" Grid.RowSpan="2"/>
-            <Image Source="/Assets/twin-sing-page.jpg" Grid.ColumnSpan="3" Grid.Row="2" Grid.Column="1" Stretch="Uniform" Grid.RowSpan="2" />
-            <Border Grid.Column="3"  Grid.Row="4" Background="#131214" CornerRadius="0,0,5,5" />
-            <Border Grid.Column="1"  Grid.RowSpan="2" Grid.Row="3" Background="#272629" CornerRadius="10" />
-            <Label Content="Dashboard" FontSize="40" Foreground="Wheat" Margin="20,20,20,20" Grid.Column="3" Grid.RowSpan="2" Grid.Row="2"/>
+            <!--BODY-->
+            <Grid x:Name="body" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
 
-            <!--Header-->
-            <Image Margin="10,10,10,10" Source="/Assets/RR_Monogram_White.png" Grid.Column="0" Grid.Row="1"/>
+                <Image Source="/Assets/background_cover.jpg" Grid.ColumnSpan="5" Grid.Row="0" Grid.Column="0" Stretch="Fill" Grid.RowSpan="2" />
+                <Label Content="Dashboard" FontSize="40" Foreground="Wheat" Margin="20,10,0,0" Grid.Column="3" Grid.Row="0"/>
+                <Border Grid.Column="3"  Grid.Row="2" Background="#131214" CornerRadius="0,0,5,5" />
 
-            <!--Footer-->
-
-            <TextBlock Text="Rolls-Royce Solutions GmbH" Grid.Row="6"
-                       Style="{StaticResource FooterStyle}" HorizontalAlignment="Right" Grid.ColumnSpan="5"/>
-
-            <!--Content Grid-->
-
-            <!--Content Grid-->
-
-               
-                    <StackPanel Grid.RowSpan="2" Grid.Column="1" Grid.Row="3">
-                        <!--Menu Search Box-->
-                        <Grid Height="20"/>
-                        <Grid>
-                            <TextBox x:Name="SearchBox"
+                <StackPanel Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
+                    <!--Menu Search Box-->
+                    <Grid Height="20"/>
+                    <Grid>
+                        <TextBox x:Name="SearchBox"
                          Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource SearchBoxStyle}" Margin="20,0,20,0" Width="Auto"/>
 
-                            <TextBlock Text="Search"
+                        <TextBlock Text="Search"
                            Style="{StaticResource SearchTextStyle}" Margin="30,0,0,0"/>
-                        </Grid>
-                        <Grid Height="20"/>
-                        <!--Menu-->
-                        <ItemsControl ItemsSource="{Binding SourceCollection}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <RadioButton Content="{Binding MenuName}"
+                    </Grid>
+                    <Grid Height="20"/>
+                    <!--Menu-->
+                    <ItemsControl ItemsSource="{Binding SourceCollection}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <RadioButton Content="{Binding MenuName}"
                                              Tag="{Binding MenuImage}" 
                                              CommandParameter="{Binding MenuName}"
                                              Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.MenuCommand}"
                                              Style="{StaticResource MenuButtonStyle}"                                                                                                                
                                              GroupName="MenuGroup"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
 
-
-                    </StackPanel>
-
-                    <!--Page Container-->
-
-                    <Grid Grid.Row="3"
+                <!--Page Container-->
+                <Grid Grid.Row="1"
                   Grid.Column="3" Grid.RowSpan="2"
                   Background="Transparent">
-                        <ContentControl x:Name="Pages" 
-                                Content="{Binding SelectedViewModel}" Margin="20"/>
-                    </Grid>
-
-
-                    <!--Window chrome-->
-                    <Grid Grid.Row="0" Grid.ColumnSpan="5" Height="30" Background="#051B33">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <!--App icon-->
-                            <TextBlock Text="Digital Component Inspection" FontFamily="Arial" Margin="4 3 0 0" Foreground="Wheat" />
-                        </StackPanel>
-
-                        <!--Caption buttons-->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                            <Button Width="25" Height="auto" Style="{StaticResource MinBtn_Style}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Minimize"
-                            Command="{Binding MinimizeAppCommand}" CommandParameter="{Binding ElementName=DashboardWindow}"/>
-
-                            <Button Width="25" Height="auto" x:Name="RestoreButton" Visibility="Collapsed" Style="{StaticResource MaxBtn_Style}" 
-                            Command="{x:Static SystemCommands.RestoreWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Restore"/>
-
-                            <Button Width="25" Height="auto" x:Name="MaximizeButton" Visibility="Visible" Style="{StaticResource MaxBtn_Style}" 
-                            Command="{Binding MaximizeAppCommand}"
-                CommandParameter="{Binding ElementName=DashboardWindow}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Maximize" />
-
-                            <Button Width="25" Height="auto" Style="{StaticResource CloseBtn_Style}" WindowChrome.IsHitTestVisibleInChrome="True" ToolTip="Close"
-                            Command="{Binding CloseAppCommand}"
-                CommandParameter="{Binding ElementName=DashboardWindow}"/>
-                        </StackPanel>
-                    </Grid>
+                    <ContentControl x:Name="Pages" 
+                                Content="{Binding SelectedViewModel}" Margin="20,0,20,20"/>
                 </Grid>
-        
-    </Border>
+            </Grid>
+
+
+            <!--FOOTER-->
+            <Grid Grid.Row="3">
+                <TextBlock Text="Rolls-Royce Solutions GmbH"
+                       Style="{StaticResource FooterStyle}" HorizontalAlignment="Right" Grid.ColumnSpan="5"/>
+            </Grid>
+
+
+        </Grid>
+
+    </Grid>
+
 </Window>
