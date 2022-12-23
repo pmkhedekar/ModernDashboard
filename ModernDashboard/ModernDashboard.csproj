@@ -271,5 +271,11 @@
   <ItemGroup>
     <Resource Include="Assets\twin-sing-page.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bg1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\background_cover.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
